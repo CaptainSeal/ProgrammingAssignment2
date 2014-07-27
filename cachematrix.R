@@ -6,13 +6,13 @@
 
 makeCacheMatrix <- function(x = matrix()) {
   inv <- matrix()
-  set <- function(y) { ## This one sets a new matrix for this "object"
+  set <- function(y) {                              ## This one sets a new matrix for this "object"
     x <<- y
-    inv <<- matrix() ## And sets inverse matrix to empty
+    inv <<- matrix()                                ## And sets inverse matrix to empty
   }
-  get <- function() x ## This one returns matrix
-  setinverse <- function(inverse) inv <<- inverse ## This one sets calculated by cacheSolve inverse
-  getinverse <- function() inv ## This one returns inverse
+  get <- function() x                               ## This one returns matrix
+  setinverse <- function(inverse) inv <<- inverse   ## This one sets calculated by cacheSolve inverse
+  getinverse <- function() inv                      ## This one returns inverse
   list(set = set, get = get,
        setinverse = setinverse,
        getinverse = getinverse)
@@ -24,11 +24,11 @@ makeCacheMatrix <- function(x = matrix()) {
 
 cacheSolve <- function(x, ...) {
   inv <- x$getinverse()
-  if(!identical(inv,matrix())) { ## Important notice: is.null(matrix()) returns FALSE,
-    message("getting cached inverse") ## hence we are comparing inv to empty matrix
+  if(!identical(inv,matrix())) {       ## Important notice: is.null(matrix()) returns FALSE,
+    message("getting cached inverse")  ## so we are comparing inv to empty matrix
     return(inv)
   }
-  inv <- solve(x$get(), ...) ## Solving(make sure matrix is invertable)
+  inv <- solve(x$get(), ...)           ## Solving(make sure matrix is invertable)
   x$setinverse(inv)
   inv
 }
